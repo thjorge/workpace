@@ -1,0 +1,143 @@
+Comandos GIT
+Commits
+Adiciona todas as alterações, inclusive arquivos novos, para commit
+
+git add -A
+Consolida as alterações adicionadas ao commit, com uma descrição
+
+git commit -m ‘commit descritpion’
+Adiciona e consolidada as alterações, mas não adiciona novos arquivos
+
+git commit -a -m "commit description"
+Branchs
+cria um branch novo apartir do branch atual
+
+git branch name_branch
+renomear um branch
+
+git branch -m name_old_branch name_new_branch
+Deleta um branch localmente atualizado
+
+git branch nomebranch -d
+Deleta branch localmente independente da situação dele
+
+git branch nomebranch -D
+Excluir branch remoto
+
+git push origin :nome_do_branch
+Lista branchs remotos
+
+git branch -a
+realiza o push e sobrescreve o branch do servidor pelo seu branch local
+
+git push --force origin branchremoto
+remove localmente todos os branches que já foram removidos remotamente - espécie de sync
+
+git remote prune origin
+cria um branch remoto baseado em um branch local
+
+git push origin branch_local:branch_remoto
+cria um branch remoto baseado em um branch local, mantendo os branches vinculados
+
+git push -u origin branch_local:branch_remoto
+vincula um branch local a um branch remoto (caso ainda não exista esta vinculação)
+
+git branch --set-upstream meu_branch origin/meu_branch
+Log
+mostra o que foi alterado em cada commit em um arquivo
+
+git log - p nome_arquivo
+mostra apenas commits e um autor específico
+
+git log --author=Name Author
+mostra quem foi o autor de cada linha de um arquivo
+
+git blame nome_arquivo
+desfaz as alterações consolidadas no último commit
+
+git reset --hard HEAD^
+desfaz as alterações consolidadas depois do commit específicado
+
+git reset --hard SHA1DOCOMMIT
+Whatchanged
+mostra quais arquivos foram alterados em cada commit
+
+git whatchanged
+mostra quais arquivos foram alterados em cada commit de um autor específico
+
+git whatchanged --author=Name Author
+Checkout
+desfaz as alterações não consolidadas no branch atual
+
+git checkout -f
+desfaz as alterações não consolidadas em um arquivo
+
+git checkout nome_arquivo
+limpa um branch e realiza o pull do servidor para um único branch
+
+git checkout -b nomeDoBranch origin/nomeDoBranch
+Ignore
+Para ignorar arquivos já existentes em seu projeto
+
+git update-index --assume-unchanged <filename(s)>
+Para "designorar" arquivos ignorados em seu projeto
+
+git update-index --no-assume-unchanged <filename(s)>
+Para listar arquivos já ignorados em seu projeto
+
+atenção: esse espaçozinho depois do 'h' é obrigatório
+
+git ls-files -v | grep "h "
+Tags
+realiza o push e envia as tags criadas para o remote
+
+git push --tags
+remove uma tag localmente
+
+git tag -d tag_name
+remove tag já enviada ao servidor - 12345 é a tag
+
+git push origin :refs/tags/tag_name
+envia uma tag criada localmente para o remote
+
+git push origin tag_name
+Revert
+Para reverter um arquivo para uma determinada versão
+
+git checkout SHA1^ -- <filename>
+Para reverter para um determinado commit criando um novo commit
+
+git revert SHA1
+Reset
+Para reverter para um determinado commit
+
+git reset --hard SHA1
+Para reverter o último commit
+
+git reset --hard HEAD^
+Stash
+move as alterações não adicionadas ao commit para memoria tempoária e limpa o branch das alterações.
+
+comando deve ser usado quando precisarmos mudar de branch sem commitar as mudanças atuais.
+
+git stash
+mostra os stashs criados, exemplo:
+
+/*
+
+stash@{0}: WIP on branch_name
+
+stash@{1}: WIP on branch_name
+
+**/
+
+git stash list
+retorna/aplica as alterações do stash 1
+
+git stash apply stash@{1}
+remove um stash da lista, é bom só fazer isso depois de garantir que o que estava no stash já foi reaplicado
+
+git stash drop stash@{0}
+criando um branch com o stash, já cria aplica o stash e remove do stash list
+
+git stash branch novobranchparateste
